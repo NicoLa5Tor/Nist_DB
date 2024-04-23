@@ -13,7 +13,7 @@ class OperationOs:
     #no esta declarada ninguna validadcion asi que los json deben estar creados al igual que las
     #carpetas
     
-    def createJson(self,data):
+    def createJson(self,data,cont):
         #creacion la data a guardar
         item = {
             "time_save" : datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -37,7 +37,16 @@ class OperationOs:
         elif self.option == 2:
             name = 'NewVulns.json'
         data_json = os.path.join(self.folder,name)
-        return data_json
+        if os.path.exists(data_json):
+             return data_json
+        else:
+            d = {
+                "time_save": "2023-2-23 00:00:00"
+            }
+            with open(data_json,'w') as objson:
+                json.dump(d,objson)
+            return data_json
+                
 
     
             

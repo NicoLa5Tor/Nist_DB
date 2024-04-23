@@ -1,5 +1,5 @@
 from insert_data import AddVulns
-obj = AddVulns(option=1)
+obj = AddVulns(option=2)
 if obj.insert_data() :
     print("Datos Guardados Exitosamente")
 else:

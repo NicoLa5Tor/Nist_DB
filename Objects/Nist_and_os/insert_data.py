@@ -24,13 +24,10 @@ class AddVulns():
             return False 
     def insert_data(self):
         if self.save_or_not():
-            if self.opt == 1:
-                data = self.obj_nist.search_vulnerabilities(cont=220000)
+                data = self.obj_nist.search_vulnerabilities(cont=50000)
                 if data is not None:
                     self.obj_os.createJson(data=data)
-                    return True
-                else:
-                    return False
+                    return True         
         else:
             return False
 
