@@ -1,4 +1,4 @@
-from insert_data import AddVulns
+from .insert_data import AddVulns
 obj = AddVulns(option=2)
 if obj.insert_data() :
     print("Datos Guardados Exitosamente")
