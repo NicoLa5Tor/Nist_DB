@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import asyncio
 class NistApi:
     def __init__(self):
         self.url_base = self.url()
@@ -14,7 +15,7 @@ class NistApi:
        # print(f"El start en la api es: {start}")
         start_index = start
         results_per_page = 2000
-        amount = (self.search_amount() - start_index ) / results_per_page
+        amount = (asyncio.run(self.search_amount()) - start_index ) / results_per_page
         am = int(amount)
         data_return = {}
         arr = []
@@ -34,7 +35,7 @@ class NistApi:
                 arr.extend(data['vulnerabilities'])
                 data_return['vulns'] = arr
                 start_index += results_per_page
-                time.sleep(10)
+                asyncio.sleep(10)
                 print(i)
                 print(f"amount {am}")
                 if i > 4 or i >= int(amount)-1:
@@ -50,13 +51,13 @@ class NistApi:
             print(f"Error al capturar el dato o error en requests {e}")
         except Exception as e:
             print(f"Error no específico: {e}")
-    def search_amount(self):
+    async def search_amount(self):
         try:
-            time.sleep(5)
+            asyncio.sleep(5)
             print(f"La url es: {self.url_base}")
             response = requests.get(self.url_base)   
             data = response.json()
-            time.sleep(5)
+            asyncio.sleep(5)
             return data['totalResults']
         except requests.HTTPError as e:
             print(f"Error http: {e}")

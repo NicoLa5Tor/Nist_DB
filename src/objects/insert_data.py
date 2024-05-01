@@ -20,10 +20,15 @@ class AddVulns():
             return True
         else:
             return False 
-    def insert_data(self,start_index,number=0):
+    def insert_data(self,start_index,number=0,amount = None):
                 st = int(start_index)
+                if amount is not None:
+                     amo = int(amount)
+                     max_amount = (amo / 1000)*1000  
+                else:
+                    max_amount = (int(self.obj_nist.search_amount() / 1000))*1000   
                 cont = 1  
-                max_amount = (int(self.obj_nist.search_amount() / 1000))*1000                   
+
                 while True:
                     nam = ""
                     if number > 0:

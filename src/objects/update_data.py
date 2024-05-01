@@ -2,6 +2,7 @@ import os,json
 from .nist_api.api import NistApi
 from .elements.functionsOs import OperationOs
 from .insert_data import AddVulns
+import asyncio
 
 class Update:
     def __init__(self):
@@ -32,9 +33,9 @@ class Update:
         data,tam = self.concat_mayor()
         object_data = self.apiOs.search_obj(name=data)
         amount_neutral = object_data['amount']
-        nistAmount = self.apiNist.search_amount()
+        nistAmount = asyncio.run(self.apiNist.search_amount())
         if amount_neutral < nistAmount:
-            self.insert.insert_data(number=tam,start_index=object_data['old_start'])
+            self.insert.insert_data(number=tam,start_index=object_data['old_start'],amount=nistAmount)
             return "Datos Actualizados con exito"
         else:
             return "No hay actualizaciones"
