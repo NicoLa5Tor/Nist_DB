@@ -2,6 +2,7 @@ from src.objects.insert_data import AddVulns
 from flask import Flask,jsonify,request,render_template
 from src.objects.update_data import Update 
 import json
+import threading
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
@@ -27,19 +28,29 @@ def nist():
             "status" : 500
         })
 @app.route('/update_data')
+def update_thread():
+   global thread_up 
+   thread_up = threading.Thread(target=update())
+   thread_up.start()
+   return jsonify({
+       "response" : "Actualizacion en proceso"
+   })
 def update():
     try:
+        
         obj = Update()
         dt = obj.update_data()
-        return jsonify({
+        response = {
             "response" : dt,
             "status": 200
-        })
+        }
     except Exception as e:
-        return jsonify({
+        response ={
             "response":e,
             "status":"error"
-        })
+        }
+    finally:
+        return jsonify(response)
 
     
 if __name__ == '__main__':
