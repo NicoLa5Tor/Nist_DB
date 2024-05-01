@@ -1,8 +1,7 @@
 from src.objects.insert_data import AddVulns
 from flask import Flask,jsonify,request,render_template
 from src.objects.update_data import Update 
-import json
-import threading
+import threading,asyncio
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
@@ -30,22 +29,22 @@ def nist():
 @app.route('/update_data')
 def update_thread():
    global thread_up 
-   thread_up = threading.Thread(target=update())
+   thread_up = threading.Thread(target=asyncio.run(update()))
    thread_up.start()
    return jsonify({
        "response" : "Actualizacion en proceso"
    })
-def update():
+async def update():
     try:
         
         obj = Update()
-        dt = obj.update_data()
+        dt = await obj.update_data()
         response = {
             "response" : dt,
             "status": 200
         }
     except Exception as e:
-        response ={
+        response = {
             "response":e,
             "status":"error"
         }
