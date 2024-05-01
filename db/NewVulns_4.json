@@ -1,7 +1,7 @@
 {
   "old_start": 246000,
-  "time_save": "2024-04-30 17:38:07",
-  "amount": 247237,
+  "time_save": "2024-04-30 23:46:50",
+  "amount": 247240,
   "data": {
     "vulns": [
       {
@@ -70579,6 +70579,541 @@
             {
               "url": "https://vuldb.com/?submit.320855",
               "source": "cna@vuldb.com"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-32970",
+          "sourceIdentifier": "security-advisories@github.com",
+          "published": "2024-04-30T23:15:06.483",
+          "lastModified": "2024-04-30T23:15:06.483",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "Phlex is a framework for building object-oriented views in Ruby. In affected versions there is a potential cross-site scripting (XSS) vulnerability that can be exploited via maliciously crafted user data. Since the last two vulnerabilities https://github.com/phlex-ruby/phlex/security/advisories/GHSA-242p-4v39-2v8g and https://github.com/phlex-ruby/phlex/security/advisories/GHSA-g7xq-xv8c-h98c, we have invested in extensive browser tests. It was these new tests that helped us uncover these issues. As of now the project exercises every possible attack vector the developers can think of \u2014 including enumerating every ASCII character, and we run these tests in Chrome, Firefox and Safari. Additionally, we test against a list of 6613 known XSS payloads (see: payloadbox/xss-payload-list). The reason these issues were not detected before is the escapes were working as designed. However, their design didn't take into account just how recklessly permissive browsers are when it comes to executing unsafe JavaScript via HTML attributes. If you render an `<a>` tag with an `href` attribute set to a user-provided link, that link could potentially execute JavaScript when clicked by another user. If you splat user-provided attributes when rendering any HTML or SVG tag, malicious event attributes could be included in the output, executing JavaScript when the events are triggered by another user. Patches are available on RubyGems for all minor versions released in the last year. Users are advised to upgrade. Users unable to upgrade should configure a Content Security Policy that does not allow `unsafe-inline` which would effectively prevent this vulnerability from being exploited. Users who upgrade are also advised to configure a Content Security Policy header that does not allow `unsafe-inline`."
+            }
+          ],
+          "metrics": {
+            "cvssMetricV31": [
+              {
+                "source": "security-advisories@github.com",
+                "type": "Secondary",
+                "cvssData": {
+                  "version": "3.1",
+                  "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:N",
+                  "attackVector": "NETWORK",
+                  "attackComplexity": "LOW",
+                  "privilegesRequired": "NONE",
+                  "userInteraction": "REQUIRED",
+                  "scope": "UNCHANGED",
+                  "confidentialityImpact": "HIGH",
+                  "integrityImpact": "LOW",
+                  "availabilityImpact": "NONE",
+                  "baseScore": 7.1,
+                  "baseSeverity": "HIGH"
+                },
+                "exploitabilityScore": 2.8,
+                "impactScore": 4.2
+              }
+            ]
+          },
+          "weaknesses": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "description": [
+                {
+                  "lang": "en",
+                  "value": "CWE-79"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy",
+              "source": "security-advisories@github.com"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#unsafe-inline",
+              "source": "security-advisories@github.com"
+            },
+            {
+              "url": "https://github.com/payloadbox/xss-payload-list",
+              "source": "security-advisories@github.com"
+            },
+            {
+              "url": "https://github.com/phlex-ruby/phlex/commit/da8f94342a84cff9d78c98bcc3b3604ee2e577d2",
+              "source": "security-advisories@github.com"
+            },
+            {
+              "url": "https://github.com/phlex-ruby/phlex/security/advisories/GHSA-9p57-h987-4vgx",
+              "source": "security-advisories@github.com"
+            },
+            {
+              "url": "https://rubygems.org/gems/phlex",
+              "source": "security-advisories@github.com"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-34149",
+          "sourceIdentifier": "cve@mitre.org",
+          "published": "2024-04-30T23:15:06.703",
+          "lastModified": "2024-04-30T23:15:06.703",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "In Bitcoin Core through 27.0 and Bitcoin Knots before 25.1.knots20231115, tapscript lacks a policy size limit check, a different issue than CVE-2023-50428. NOTE: some parties oppose this new limit check (for example, because they agree with the objective but disagree with the technical mechanism, or because they have a different objective)."
+            }
+          ],
+          "metrics": {},
+          "references": [
+            {
+              "url": "https://github.com/bitcoin/bitcoin/pull/29769",
+              "source": "cve@mitre.org"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-4192",
+          "sourceIdentifier": "ics-cert@hq.dhs.gov",
+          "published": "2024-04-30T23:15:06.770",
+          "lastModified": "2024-04-30T23:15:06.770",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "\nDelta Electronics CNCSoft-G2 lacks proper validation of the length of user-supplied data prior to copying it to a fixed-length stack-based buffer. An attacker can leverage this vulnerability to execute code in the context of the current process.\n\n"
+            }
+          ],
+          "metrics": {
+            "cvssMetricV31": [
+              {
+                "source": "ics-cert@hq.dhs.gov",
+                "type": "Secondary",
+                "cvssData": {
+                  "version": "3.1",
+                  "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                  "attackVector": "LOCAL",
+                  "attackComplexity": "LOW",
+                  "privilegesRequired": "NONE",
+                  "userInteraction": "REQUIRED",
+                  "scope": "UNCHANGED",
+                  "confidentialityImpact": "HIGH",
+                  "integrityImpact": "HIGH",
+                  "availabilityImpact": "HIGH",
+                  "baseScore": 7.8,
+                  "baseSeverity": "HIGH"
+                },
+                "exploitabilityScore": 1.8,
+                "impactScore": 5.9
+              }
+            ]
+          },
+          "weaknesses": [
+            {
+              "source": "ics-cert@hq.dhs.gov",
+              "type": "Primary",
+              "description": [
+                {
+                  "lang": "en",
+                  "value": "CWE-121"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-24-121-01",
+              "source": "ics-cert@hq.dhs.gov"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-4349",
+          "sourceIdentifier": "cna@vuldb.com",
+          "published": "2024-04-30T23:15:07.020",
+          "lastModified": "2024-04-30T23:15:07.020",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "A vulnerability has been found in SourceCodester Pisay Online E-Learning System 1.0 and classified as critical. Affected by this vulnerability is an unknown functionality of the file /lesson/controller.php. The manipulation of the argument file leads to unrestricted upload. The attack can be launched remotely. The exploit has been disclosed to the public and may be used. The identifier VDB-262489 was assigned to this vulnerability."
+            }
+          ],
+          "metrics": {
+            "cvssMetricV31": [
+              {
+                "source": "cna@vuldb.com",
+                "type": "Secondary",
+                "cvssData": {
+                  "version": "3.1",
+                  "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+                  "attackVector": "NETWORK",
+                  "attackComplexity": "LOW",
+                  "privilegesRequired": "LOW",
+                  "userInteraction": "NONE",
+                  "scope": "UNCHANGED",
+                  "confidentialityImpact": "LOW",
+                  "integrityImpact": "LOW",
+                  "availabilityImpact": "LOW",
+                  "baseScore": 6.3,
+                  "baseSeverity": "MEDIUM"
+                },
+                "exploitabilityScore": 2.8,
+                "impactScore": 3.4
+              }
+            ],
+            "cvssMetricV2": [
+              {
+                "source": "cna@vuldb.com",
+                "type": "Secondary",
+                "cvssData": {
+                  "version": "2.0",
+                  "vectorString": "AV:N/AC:L/Au:S/C:P/I:P/A:P",
+                  "accessVector": "NETWORK",
+                  "accessComplexity": "LOW",
+                  "authentication": "SINGLE",
+                  "confidentialityImpact": "PARTIAL",
+                  "integrityImpact": "PARTIAL",
+                  "availabilityImpact": "PARTIAL",
+                  "baseScore": 6.5
+                },
+                "baseSeverity": "MEDIUM",
+                "exploitabilityScore": 8.0,
+                "impactScore": 6.4,
+                "acInsufInfo": false,
+                "obtainAllPrivilege": false,
+                "obtainUserPrivilege": false,
+                "obtainOtherPrivilege": false,
+                "userInteractionRequired": false
+              }
+            ]
+          },
+          "weaknesses": [
+            {
+              "source": "cna@vuldb.com",
+              "type": "Primary",
+              "description": [
+                {
+                  "lang": "en",
+                  "value": "CWE-434"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "url": "https://github.com/CveSecLook/cve/issues/19",
+              "source": "cna@vuldb.com"
+            },
+            {
+              "url": "https://vuldb.com/?ctiid.262489",
+              "source": "cna@vuldb.com"
+            },
+            {
+              "url": "https://vuldb.com/?id.262489",
+              "source": "cna@vuldb.com"
+            },
+            {
+              "url": "https://vuldb.com/?submit.324929",
+              "source": "cna@vuldb.com"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-4369",
+          "sourceIdentifier": "secalert@redhat.com",
+          "published": "2024-05-01T00:15:06.890",
+          "lastModified": "2024-05-01T00:15:06.890",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "An information disclosure flaw was found in OpenShift's internal image registry operator. AZURE_CLIENT_SECRET can be exposed through an environment variable defined in the pod definition, but is limited to Azure environments. An attacker controlling an account that has high enough permissions to obtain pod information from the openshift-image-registry namespace could use this obtained client secret to perform actions as the registry operator's Azure service account."
+            }
+          ],
+          "metrics": {
+            "cvssMetricV31": [
+              {
+                "source": "secalert@redhat.com",
+                "type": "Secondary",
+                "cvssData": {
+                  "version": "3.1",
+                  "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:N/A:N",
+                  "attackVector": "NETWORK",
+                  "attackComplexity": "LOW",
+                  "privilegesRequired": "HIGH",
+                  "userInteraction": "NONE",
+                  "scope": "CHANGED",
+                  "confidentialityImpact": "HIGH",
+                  "integrityImpact": "NONE",
+                  "availabilityImpact": "NONE",
+                  "baseScore": 6.8,
+                  "baseSeverity": "MEDIUM"
+                },
+                "exploitabilityScore": 2.3,
+                "impactScore": 4.0
+              }
+            ]
+          },
+          "weaknesses": [
+            {
+              "source": "secalert@redhat.com",
+              "type": "Primary",
+              "description": [
+                {
+                  "lang": "en",
+                  "value": "CWE-526"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "url": "https://access.redhat.com/security/cve/CVE-2024-4369",
+              "source": "secalert@redhat.com"
+            },
+            {
+              "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2278035",
+              "source": "secalert@redhat.com"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-33763",
+          "sourceIdentifier": "cve@mitre.org",
+          "published": "2024-05-01T03:15:07.257",
+          "lastModified": "2024-05-01T03:15:07.257",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "lunasvg v2.3.9 was discovered to contain a stack-buffer-underflow at lunasvg/source/layoutcontext.cpp."
+            }
+          ],
+          "metrics": {},
+          "references": [
+            {
+              "url": "https://github.com/keepinggg/poc/tree/main/poc_of_lunasvg",
+              "source": "cve@mitre.org"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-33764",
+          "sourceIdentifier": "cve@mitre.org",
+          "published": "2024-05-01T03:15:07.320",
+          "lastModified": "2024-05-01T03:15:07.320",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "lunasvg v2.3.9 was discovered to contain a stack-overflow at lunasvg/source/element.h."
+            }
+          ],
+          "metrics": {},
+          "references": [
+            {
+              "url": "https://github.com/keepinggg/poc/tree/main/poc_of_lunasvg",
+              "source": "cve@mitre.org"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-33766",
+          "sourceIdentifier": "cve@mitre.org",
+          "published": "2024-05-01T03:15:07.370",
+          "lastModified": "2024-05-01T03:15:07.370",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "lunasvg v2.3.9 was discovered to contain an FPE (Floating Point Exception) at blend_transformed_tiled_argb.isra.0."
+            }
+          ],
+          "metrics": {},
+          "references": [
+            {
+              "url": "https://github.com/keepinggg/poc/tree/main/poc_of_lunasvg",
+              "source": "cve@mitre.org"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-33767",
+          "sourceIdentifier": "cve@mitre.org",
+          "published": "2024-05-01T03:15:07.413",
+          "lastModified": "2024-05-01T03:15:07.413",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "lunasvg v2.3.9 was discovered to contain a segmentation violation via the component composition_solid_source."
+            }
+          ],
+          "metrics": {},
+          "references": [
+            {
+              "url": "https://github.com/keepinggg/poc/tree/main/poc_of_lunasvg",
+              "source": "cve@mitre.org"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-33768",
+          "sourceIdentifier": "cve@mitre.org",
+          "published": "2024-05-01T03:15:07.463",
+          "lastModified": "2024-05-01T03:15:07.463",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "lunasvg v2.3.9 was discovered to contain a segmentation violation via the component composition_solid_source_over."
+            }
+          ],
+          "metrics": {},
+          "references": [
+            {
+              "url": "https://github.com/keepinggg/poc/tree/main/poc_of_lunasvg",
+              "source": "cve@mitre.org"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-28978",
+          "sourceIdentifier": "security_alert@emc.com",
+          "published": "2024-05-01T04:15:10.153",
+          "lastModified": "2024-05-01T04:15:10.153",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "Dell OpenManage Enterprise, versions 3.10 and 4.0, contains an Improper Access Control vulnerability. A high privileged remote attacker could potentially exploit this vulnerability, leading to unauthorized access to resources."
+            }
+          ],
+          "metrics": {
+            "cvssMetricV31": [
+              {
+                "source": "security_alert@emc.com",
+                "type": "Secondary",
+                "cvssData": {
+                  "version": "3.1",
+                  "vectorString": "CVSS:3.1/AV:A/AC:L/PR:H/UI:N/S:U/C:H/I:L/A:N",
+                  "attackVector": "ADJACENT_NETWORK",
+                  "attackComplexity": "LOW",
+                  "privilegesRequired": "HIGH",
+                  "userInteraction": "NONE",
+                  "scope": "UNCHANGED",
+                  "confidentialityImpact": "HIGH",
+                  "integrityImpact": "LOW",
+                  "availabilityImpact": "NONE",
+                  "baseScore": 5.2,
+                  "baseSeverity": "MEDIUM"
+                },
+                "exploitabilityScore": 0.9,
+                "impactScore": 4.2
+              }
+            ]
+          },
+          "weaknesses": [
+            {
+              "source": "security_alert@emc.com",
+              "type": "Primary",
+              "description": [
+                {
+                  "lang": "en",
+                  "value": "CWE-284"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "url": "https://www.dell.com/support/kbdoc/en-us/000224641/dsa-2024-201-security-update-for-dell-openmanage-enterprise-vulnerability",
+              "source": "security_alert@emc.com"
+            }
+          ]
+        }
+      },
+      {
+        "cve": {
+          "id": "CVE-2024-28979",
+          "sourceIdentifier": "security_alert@emc.com",
+          "published": "2024-05-01T04:15:10.387",
+          "lastModified": "2024-05-01T04:15:10.387",
+          "vulnStatus": "Received",
+          "descriptions": [
+            {
+              "lang": "en",
+              "value": "Dell OpenManage Enterprise, versions prior to 4.1.0, contains an XSS injection vulnerability in UI. A high privileged local attacker could potentially exploit this vulnerability, leading to JavaScript injection."
+            }
+          ],
+          "metrics": {
+            "cvssMetricV31": [
+              {
+                "source": "security_alert@emc.com",
+                "type": "Secondary",
+                "cvssData": {
+                  "version": "3.1",
+                  "vectorString": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:C/C:L/I:L/A:L",
+                  "attackVector": "NETWORK",
+                  "attackComplexity": "HIGH",
+                  "privilegesRequired": "HIGH",
+                  "userInteraction": "REQUIRED",
+                  "scope": "CHANGED",
+                  "confidentialityImpact": "LOW",
+                  "integrityImpact": "LOW",
+                  "availabilityImpact": "LOW",
+                  "baseScore": 5.1,
+                  "baseSeverity": "MEDIUM"
+                },
+                "exploitabilityScore": 1.0,
+                "impactScore": 3.7
+              }
+            ]
+          },
+          "weaknesses": [
+            {
+              "source": "security_alert@emc.com",
+              "type": "Secondary",
+              "description": [
+                {
+                  "lang": "en",
+                  "value": "CWE-20"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "url": "https://www.dell.com/support/kbdoc/en-us/000224642/dsa-2024-202-security-update-for-dell-openmanage-enterprise-vulnerability",
+              "source": "security_alert@emc.com"
             }
           ]
         }

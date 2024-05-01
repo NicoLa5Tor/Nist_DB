@@ -53,6 +53,7 @@ class NistApi:
     def search_amount(self):
         try:
             time.sleep(5)
+            print(f"La url es: {self.url_base}")
             response = requests.get(self.url_base)   
             data = response.json()
             time.sleep(5)
