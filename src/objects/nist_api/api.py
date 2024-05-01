@@ -10,12 +10,12 @@ class NistApi:
         with open('config.json','r') as conf:
             data = json.load(conf)
             return data['urlNist']   
-    def search_vulnerabilities(self,start):
+    async def search_vulnerabilities(self,start):
         api_key = '45e9ee1d-47f7-4be9-893b-c54feb808265'  
        # print(f"El start en la api es: {start}")
         start_index = start
         results_per_page = 2000
-        amount = (asyncio.run(self.search_amount()) - start_index ) / results_per_page
+        amount = (await self.search_amount() - start_index ) / results_per_page
         am = int(amount)
         data_return = {}
         arr = []
@@ -35,7 +35,7 @@ class NistApi:
                 arr.extend(data['vulnerabilities'])
                 data_return['vulns'] = arr
                 start_index += results_per_page
-                asyncio.sleep(10)
+                await asyncio.sleep(10)
                 print(i)
                 print(f"amount {am}")
                 if i > 4 or i >= int(amount)-1:
@@ -53,11 +53,11 @@ class NistApi:
             print(f"Error no específico: {e}")
     async def search_amount(self):
         try:
-            asyncio.sleep(5)
+            await asyncio.sleep(5)
             print(f"La url es: {self.url_base}")
             response = requests.get(self.url_base)   
             data = response.json()
-            asyncio.sleep(5)
+            await asyncio.sleep(5)
             return data['totalResults']
         except requests.HTTPError as e:
             print(f"Error http: {e}")

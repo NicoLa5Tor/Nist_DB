@@ -1,6 +1,7 @@
 from .elements.functionsOs import OperationOs
 from .nist_api.api import NistApi
 from datetime import datetime,timedelta
+import asyncio
 class AddVulns():
     def __init__(self,option):
         self.obj_os = OperationOs(opt=option)
@@ -38,7 +39,7 @@ class AddVulns():
                         nam = f"NewVulns_{cont}.json"
                     print(f"El nombre es {nam}")
                     print(f"start del insert: {st}")
-                    data,start = self.obj_nist.search_vulnerabilities(start=st)
+                    data,start = asyncio.run(self.obj_nist.search_vulnerabilities(start=st))
                     print(f"start: {start}")
                     if data is not None:
                         self.obj_os.createJson(data=data,name=nam,start=st)
