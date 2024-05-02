@@ -29,20 +29,21 @@ def nist():
 @app.route('/update_data')
 def update_thread():
    global thread_up 
-   thread_up = threading.Thread(target=update)
+   thread_up = threading.Thread(target=run_update)
    thread_up.start()
    return jsonify({
        "response" : "Actualizacion en proceso"
    })
-def update():
+async def update():
     try:
         
         obj = Update()
-        dt = asyncio.run(obj.update_data())
+        dt = await obj.update_data()
         response = {
             "response" : dt,
             "status": 200
         }
+        print("si hace todo el proceso, deberia retornar el response")
     except Exception as e:
         response = {
             "response":e,
@@ -50,6 +51,10 @@ def update():
         }
     finally:
         return json.dumps(response)
+    
+def run_update():
+    asyncio.run(update())
+
 
 #descomentar en uso local
 #comentar para despliegue 
