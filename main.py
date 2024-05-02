@@ -1,7 +1,7 @@
 from src.objects.insert_data import AddVulns
 from flask import Flask,jsonify,request,render_template
 from src.objects.update_data import Update 
-import threading,asyncio
+import threading,asyncio,json
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
@@ -49,8 +49,9 @@ def update():
             "status":"error"
         }
     finally:
-        return response
+        return json.dumps(response)
 
-    
-if __name__ == '__main__':
-    app.run(debug=True,port=4000)
+#descomentar en uso local
+#comentar para despliegue 
+#if __name__ == '__main__':
+#    app.run(debug=True,port=4000)
