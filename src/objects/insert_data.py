@@ -21,13 +21,13 @@ class AddVulns():
             return True
         else:
             return False 
-    def insert_data(self,start_index,number=0,amount = None):
+    async def insert_data(self,start_index,number=0,amount = None):
                 st = int(start_index)
                 if amount is not None:
                      amo = int(amount)
                      max_amount = (amo / 1000)*1000  
                 else:
-                    max_amount = (int(self.obj_nist.search_amount() / 1000))*1000   
+                    max_amount = (await self.obj_nist.search_amount() / 1000)*1000   
                 cont = 1  
 
                 while True:
@@ -39,7 +39,7 @@ class AddVulns():
                         nam = f"NewVulns_{cont}.json"
                     print(f"El nombre es {nam}")
                     print(f"start del insert: {st}")
-                    data,start = asyncio.run(self.obj_nist.search_vulnerabilities(start=st))
+                    data,start = await self.obj_nist.search_vulnerabilities(start=st)
                     print(f"start: {start}")
                     if data is not None:
                         self.obj_os.createJson(data=data,name=nam,start=st)
