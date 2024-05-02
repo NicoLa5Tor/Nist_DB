@@ -29,16 +29,16 @@ def nist():
 @app.route('/update_data')
 def update_thread():
    global thread_up 
-   thread_up = threading.Thread(target=asyncio.run(update()))
+   thread_up = threading.Thread(target=update())
    thread_up.start()
    return jsonify({
        "response" : "Actualizacion en proceso"
    })
-async def update():
+def update():
     try:
         
         obj = Update()
-        dt = await obj.update_data()
+        dt = asyncio.run(obj.update_data())
         response = {
             "response" : dt,
             "status": 200
