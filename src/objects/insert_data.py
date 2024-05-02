@@ -39,7 +39,7 @@ class AddVulns():
                         nam = f"NewVulns_{cont}.json"
                     print(f"El nombre es {nam}")
                     print(f"start del insert: {st}")
-                    data,start = await self.obj_nist.search_vulnerabilities(start=st)
+                    data,start = await self.obj_nist.search_vulnerabilities(start=st,_amount = max_amount )
                     print(f"start: {start}")
                     if data is not None:
                         self.obj_os.createJson(data=data,name=nam,start=st)

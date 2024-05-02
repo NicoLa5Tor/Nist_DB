@@ -10,12 +10,12 @@ class NistApi:
         with open('config.json','r') as conf:
             data = json.load(conf)
             return data['urlNist']   
-    async def search_vulnerabilities(self,start):
+    async def search_vulnerabilities(self,start,_amount):
         api_key = '45e9ee1d-47f7-4be9-893b-c54feb808265'  
-       # print(f"El start en la api es: {start}")
+        print(f"El start en la api es: {start}")
         start_index = start
         results_per_page = 2000
-        amount = (await self.search_amount() - start_index ) / results_per_page
+        amount = (_amount - start_index ) / results_per_page
         am = int(amount)
         data_return = {}
         arr = []
