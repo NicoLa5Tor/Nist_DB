@@ -1,4 +1,4 @@
-import os,json,datetime
+import os,json,datetime,asyncio
 from ..nist_api.api import NistApi
 
 
@@ -15,12 +15,17 @@ class OperationOs:
     #no esta declarada ninguna validadcion asi que los json deben estar creados al igual que las
     #carpetas
     
-    def createJson(self,data,name,start=0):
+    def createJson(self,data,name,start=0,_amount = None):
         #creacion la data a guardar
+        if _amount is not None:
+            amt = _amount
+        else:
+            amt = asyncio.run(self.obj.search_amount())
+
         item = {
             "old_start" : start,
             "time_save" : datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            "amount" : self.obj.search_amount() ,
+            "amount" : amt,
             "data" : data
 
         }
@@ -38,13 +43,13 @@ class OperationOs:
         #-opcion 2 = Nuevas vulnerabilidades
         #traer el path del json
         name = ""
-        print(f'folder: {self.folder}')
+        print(f'folder en el os: {self.folder}')
         if self.option == 1:
             name = 'OldVulns.json'
         else: 
             name = nam
         data_json = os.path.join(self.folder,name)
-        print(f"El nombre es: {data_json}")
+        print(f"El nombre en el os es: {data_json}")
         if os.path.exists(data_json):
              return data_json
         else:

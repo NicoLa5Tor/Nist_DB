@@ -42,7 +42,7 @@ class AddVulns():
                     data,start = await self.obj_nist.search_vulnerabilities(start=st,_amount = max_amount )
                     print(f"start: {start}")
                     if data is not None:
-                        self.obj_os.createJson(data=data,name=nam,start=st)
+                        self.obj_os.createJson(data=data,name=nam,start=st,_amount = max_amount)
                     st = start   
                     
                     print(f"amount comparado en el insert: {max_amount}")
