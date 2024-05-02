@@ -29,7 +29,7 @@ def nist():
 @app.route('/update_data')
 def update_thread():
    global thread_up 
-   thread_up = threading.Thread(target=update())
+   thread_up = threading.Thread(target=update)
    thread_up.start()
    return jsonify({
        "response" : "Actualizacion en proceso"
