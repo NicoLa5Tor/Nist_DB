@@ -1,10 +1,13 @@
 from src.objects.insert_data import AddVulns
-from flask import Flask,jsonify,request,render_template
+from flask import Flask,jsonify,request,render_template,render_template_string
 from src.objects.update_data import Update 
-import threading,asyncio,json
+import threading,asyncio,time,json
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
+dicc = None
+terminate_flag = threading.Event()
+json_data = {"response":"Actualizacion en proceso"}
 @app.route('/save_data')
 def nist():
     start = request.args.get('start_index')
@@ -27,36 +30,49 @@ def nist():
             "status" : 500
         })
 @app.route('/update_data')
-def update_thread():
+def update_thread(val = None):
+   global json_data
    global thread_up 
-   thread_up = threading.Thread(target=run_update)
-   thread_up.start()
-   return jsonify({
-       "response" : "Actualizacion en proceso"
-   })
+   if val is None:
+        print("ejecuta el hilo")
+        thread_up = threading.Thread(target=run_update)
+        thread_up.start()
+        thread_up.join()
+   else:
+       
+       json_data = val
+       
+       
+   with app.app_context():
+     return jsonify(json_data)  
+        
+ 
 async def update():
     try:
-        
+      
         obj = Update()
         dt = await obj.update_data()
         response = {
             "response" : dt,
             "status": 200
         }
+        print(f"retorna {dt}")
         print("si hace todo el proceso, deberia retornar el response")
     except Exception as e:
         response = {
-            "response":e,
+            "response":str(e),
             "status":"error"
         }
     finally:
-        return json.dumps(response)
-    
+        return  response
+                          
 def run_update():
-    asyncio.run(update())
+   dat =  asyncio.run(update())
+   update_thread(dat)
+    
 
 
 #descomentar en uso local
-#comentar para despliegue 
-#if __name__ == '__main__':
-#    app.run(debug=True,port=4000)
+#comj
+if __name__ == '__main__':
+    app.run(debug=True,port=4000)
