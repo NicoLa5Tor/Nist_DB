@@ -1,15 +1,14 @@
 from src.objects.insert_data import AddVulns
-from flask import Flask,jsonify,request,render_template,render_template_string
+from flask import Flask,jsonify,request,redirect
 from src.objects.update_data import Update 
 import threading,asyncio,time,json
-#con esta libreria creamos el pool de hilos
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
+executor = ProcessPoolExecutor(max_workers=1)
 dicc = None
-#creamos solo dos hilos, para se ejecutados
-json_data = {"response":"Actualizacion en proceso"}
+json_data = {"response":"Tarea completeda, para un mejor resultado vuelva a conusltar en 5 segundos"}
 @app.route('/save_data')
 def nist():
     start = request.args.get('start_index')
@@ -32,25 +31,19 @@ def nist():
             "status" : 500
         })
 @app.route('/update_data')
-def update_thread(val = None):
+def update_thread():
    global json_data
    global thread_up 
-   if val is None:
-        print("ejecuta el hilo")
-        with ThreadPoolExecutor(max_workers=2) as executor:
-            executor.submit(run_update)
-   else:
-       
-       json_data = val
-       
-       
-   with app.app_context():
-     return jsonify(json_data)  
-        
- 
+   thread_up = threading.Thread(target=run_update)
+   thread_up.start()
+   return jsonify(json_data)
+@app.route('/update_data_response')
+def redict():
+    response = request.args.get('response')
+    return jsonify(response)          
+
 async def update():
-    try:
-      
+    try:    
         obj = Update()
         dt = await obj.update_data()
         response = {
@@ -66,10 +59,11 @@ async def update():
         }
     finally:
         return  response
-                          
+
 def run_update():
    dat =  asyncio.run(update())
-   update_thread(dat)
+   print(f"la respuesta es: {dat}")
+   redirect(f'/update_data_response?response={dat}')
     
 
 
