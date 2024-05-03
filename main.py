@@ -37,7 +37,6 @@ def update_thread(val = None):
         print("ejecuta el hilo")
         thread_up = threading.Thread(target=run_update)
         thread_up.start()
-        thread_up.join()
    else:
        
        json_data = val
