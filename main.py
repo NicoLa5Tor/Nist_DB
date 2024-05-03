@@ -2,11 +2,13 @@ from src.objects.insert_data import AddVulns
 from flask import Flask,jsonify,request,render_template,render_template_string
 from src.objects.update_data import Update 
 import threading,asyncio,time,json
+#con esta libreria creamos el pool de hilos
+from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
 dicc = None
-terminate_flag = threading.Event()
+#creamos solo dos hilos, para se ejecutados
 json_data = {"response":"Actualizacion en proceso"}
 @app.route('/save_data')
 def nist():
@@ -35,8 +37,8 @@ def update_thread(val = None):
    global thread_up 
    if val is None:
         print("ejecuta el hilo")
-        thread_up = threading.Thread(target=run_update)
-        thread_up.start()
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            executor.submit(run_update)
    else:
        
        json_data = val
