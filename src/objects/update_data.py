@@ -34,7 +34,7 @@ class Update:
         object_data = self.apiOs.search_obj(name=data)
         amount_neutral = object_data['amount']
         nistAmount = await self.apiNist.search_amount()
-        print(f"ejecuta el serach amount y retorna el dato: {nistAmount}")
+      #  print(f"ejecuta el serach amount y retorna el dato: {nistAmount}")
         if amount_neutral < nistAmount:
             await self.insert.insert_data(number=tam,start_index=object_data['old_start'],amount=nistAmount)
             return "Datos Actualizados con exito"

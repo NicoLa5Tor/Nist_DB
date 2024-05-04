@@ -1,14 +1,13 @@
 from src.objects.insert_data import AddVulns
-from flask import Flask,jsonify,request,redirect
+from flask import Flask,jsonify,request,redirect,url_for,render_template_string
 from src.objects.update_data import Update 
 import threading,asyncio,time,json
 from concurrent.futures import ProcessPoolExecutor
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
-executor = ProcessPoolExecutor(max_workers=1)
 dicc = None
-json_data = {"response":"Tarea completeda, para un mejor resultado vuelva a conusltar en 5 segundos"}
+json_data = {"response":"Tarea completeda, para un mejor resultado vuelva a consultar en 5 a 10 segundos :)"}
 @app.route('/save_data')
 def nist():
     start = request.args.get('start_index')
@@ -34,13 +33,19 @@ def nist():
 def update_thread():
    global json_data
    global thread_up 
+  
    thread_up = threading.Thread(target=run_update)
    thread_up.start()
-   return jsonify(json_data)
+   try:
+       return redirect('update_data_response')    
+   except RuntimeError as e:
+       print("Error controlado")  
 @app.route('/update_data_response')
-def redict():
-    response = request.args.get('response')
-    return jsonify(response)          
+def update_data_response():
+    global json_data
+          
+    #print(f"Data es: {json_data}")
+    return jsonify(json_data)        
 
 async def update():
     try:    
@@ -50,8 +55,8 @@ async def update():
             "response" : dt,
             "status": 200
         }
-        print(f"retorna {dt}")
-        print("si hace todo el proceso, deberia retornar el response")
+      #  print(f"retorna {dt}")
+       # print("si hace todo el proceso, deberia retornar el response")
     except Exception as e:
         response = {
             "response":str(e),
@@ -61,13 +66,17 @@ async def update():
         return  response
 
 def run_update():
+   global json_data
    dat =  asyncio.run(update())
-   print(f"la respuesta es: {dat}")
-   redirect(f'/update_data_response?response={dat}')
+  # print(f"la respuesta es: {dat}")
+   json_data = dat
+  
+ 
+   
     
 
 
 #descomentar en uso local
 #comj
 if __name__ == '__main__':
-    app.run(debug=True,port=4000)
+    app.run(debug=True)

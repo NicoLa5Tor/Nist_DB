@@ -37,20 +37,20 @@ class AddVulns():
                         number += 1
                     else:
                         nam = f"NewVulns_{cont}.json"
-                    print(f"El nombre es {nam}")
-                    print(f"start del insert: {st}")
+                  #  print(f"El nombre es {nam}")
+                   # print(f"start del insert: {st}")
                     data,start = await self.obj_nist.search_vulnerabilities(start=st,_amount = max_amount )
-                    print(f"start: {start}")
+                   # print(f"start: {start}")
                     if data is not None:
                         self.obj_os.createJson(data=data,name=nam,start=st,_amount = max_amount)
                     st = start   
                     
-                    print(f"amount comparado en el insert: {max_amount}")
+                  #  print(f"amount comparado en el insert: {max_amount}")
                     if start >= max_amount:
-                           print("retorna verdadero en el insert")
+                #           print("retorna verdadero en el insert")
                            return True
                     cont += 1
-                    print(f"termina el ciclo {cont}")
+                 #   print(f"termina el ciclo {cont}")
              
                     
         
