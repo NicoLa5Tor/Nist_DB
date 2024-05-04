@@ -7,7 +7,9 @@ from concurrent.futures import ProcessPoolExecutor
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
 dicc = None
-json_data = {"response":"Tarea completeda, para un mejor resultado vuelva a consultar en 5 a 10 segundos :)"}
+json_data = {"response":"Tarea completeda, para un mejor resultado vuelva a consultar en 15 a 30 segundos :)",
+             "Note": "Este proceso puede tardar"
+             }
 @app.route('/save_data')
 def nist():
     start = request.args.get('start_index')
