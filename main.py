@@ -1,11 +1,12 @@
 from src.objects.insert_data import AddVulns
-from flask import Flask,jsonify,request,redirect,url_for,render_template_string
+from flask import Flask,jsonify,request,redirect
 from src.objects.update_data import Update 
-import threading,asyncio,time,json
-from concurrent.futures import ProcessPoolExecutor
+import threading,asyncio
+from src.objects.search import Search
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
+
 dicc = None
 json_data = {"response":"Tarea completeda, para un mejor resultado vuelva a consultar en 15 a 30 segundos :)",
              "Note": "Este proceso puede tardar"
@@ -48,6 +49,23 @@ def update_data_response():
           
     #print(f"Data es: {json_data}")
     return jsonify(json_data)        
+@app.route('/search_cant_vulns')
+def search_cant_vulns():
+    obj_search = Search() 
+    none, low, medium, high, critical, awaitAnalisis,total = obj_search.data_vulns()
+    return jsonify({
+        "result": {
+            "None" : none,
+            "Low" : low,
+            "Medium" : medium,
+            "High" : high,
+            "Critical" : critical,
+            "Awaiting Analysis" : awaitAnalisis,
+            "Total Vulns" :total
+        }
+    })
+
+
 
 async def update():
     try:    

@@ -1,8 +1,7 @@
-import os,json
+import os
 from .nist_api.api import NistApi
 from .elements.functionsOs import OperationOs
 from .insert_data import AddVulns
-import asyncio
 
 class Update:
     def __init__(self):
@@ -10,22 +9,23 @@ class Update:
         self.apiNist = NistApi()
         self.apiOs = OperationOs(opt=2)
         self.insert = AddVulns(option=2)
-       
-    def concat_mayor(self):
-        def  _agroup_json():
+    def  _agroup_json(self):
             list_json = [arch for arch in os.listdir(self.folder) if arch.endswith(".json")]
-            return list_json
-        def _search_mayor():
+            return list_json  
+    def _search_mayor(self):
             mayor = 0
-            for item in _agroup_json():
+            for item in self._agroup_json():
                 n,i = item.split('_')
                 data,nn = i.split('.')
                 dat = int(data)
                 if dat > mayor:
                     mayor = dat
             return mayor
+    def concat_mayor(self):
+       
+       
         intial = "NewVulns_"
-        tam = _search_mayor()
+        tam = self._search_mayor()
         final = intial+str(tam)+".json"
         return final,tam
    
