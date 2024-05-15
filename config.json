@@ -1,3 +1,4 @@
 {
-    "urlNist" : "https://services.nvd.nist.gov/rest/json/cves/2.0"
+    "urlNist" : "https://services.nvd.nist.gov/rest/json/cves/2.0",
+    "urlDb"  : "https://mongoatlas-crxv.onrender.com"
 }

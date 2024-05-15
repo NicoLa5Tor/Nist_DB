@@ -3,9 +3,11 @@ from flask import Flask,jsonify,request,redirect
 from src.objects.update_data import Update 
 import threading,asyncio
 from src.objects.search import Search
+from src.objects.datab import Database
 
 app = Flask(__name__)
 obj_insert  = AddVulns(option=2)
+obj_database = Database()
 
 dicc = None
 json_data = {"response":"Tarea completeda, para un mejor resultado vuelva a consultar en 15 a 30 segundos :)",
@@ -53,6 +55,7 @@ def update_data_response():
 def search_cant_vulns():
     obj_search = Search() 
     none, low, medium, high, critical, awaitAnalisis,total = obj_search.data_vulns()
+    data_response = obj_database.concat_new_vulns(none=none,low=low,medium=medium,high=high,critical=critical,total=total,awaitAnalisis=awaitAnalisis)
     return jsonify({
         "result": {
             "None" : none,
@@ -61,7 +64,8 @@ def search_cant_vulns():
             "High" : high,
             "Critical" : critical,
             "Awaiting Analysis" : awaitAnalisis,
-            "Total Vulns" :total
+            "Total Vulns" :total,
+            "Response db" : data_response
         }
     })
 

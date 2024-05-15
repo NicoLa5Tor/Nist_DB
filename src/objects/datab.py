@@ -1,0 +1,66 @@
+import requests
+import os,json
+class Database:
+    def __init__(self) :
+        self.uril = self.url()
+    def url(self):
+        with open('config.json','r') as conf:
+            data = json.load(conf)
+            return data['urlDb']
+        
+    def concat_new_vulns(self,none, low, medium, high, critical, awaitAnalisis,total):
+        uril = self.uril + "/add_item" 
+        item_json_get = self.seach_db()
+        newnone = none+item_json_get['None']
+        newlow = low+item_json_get['Low']
+        newmedium = medium+item_json_get['Medium']
+        newhigh = high+item_json_get['High']
+        newcritical = critical+item_json_get['Critical']
+        newawaitAnalisis = awaitAnalisis+item_json_get['AwaitAnalisis']
+        newTotal = total+item_json_get['Total']
+        
+        try:
+            data = {
+                "name_db" : "NicolasJuan",
+                "_id" : "Count_Vulns",
+                "name_collection" : "Content",
+                "item" : {
+                    "None" : newnone,
+                    "Low" : newlow,
+                    "Medium" : newmedium,
+                    "High" : newhigh,
+                    "Critical" : newcritical,
+                    "AwaitAnalisis" : newawaitAnalisis,
+                    "Total" : newTotal
+                }
+            }
+            response = requests.post(url=uril,json=data)
+            if response.status_code == 200:
+                return "Datos de la base de datos, actualizados"
+            else:
+                return None
+        except Exception as e:
+            print(f"Error al guardar los nuvos datos {str(e)}")
+
+
+
+
+    def seach_db(self):
+        data = {
+            "name_db" : "NicolasJuan",
+            "_id" : "Count_Oldvulns",
+            "name_collection" : "Content"
+        }
+        try:
+            url = self.uril + "/get_item"
+            response = requests.get(url=url,json=data)
+            if response.status_code == 200:
+                print("retorna el get item")
+                return response['response']['item']
+            else:
+                print("algun error de acceso al consulatar")
+                return None
+
+        except Exception as e:
+            print(f"Error al cunsultar la base para en busca del item {str(e)}")
+            return None
