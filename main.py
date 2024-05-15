@@ -54,7 +54,8 @@ def update_data_response():
 @app.route('/search_cant_vulns')
 def search_cant_vulns():
     obj_search = Search() 
-    none, low, medium, high, critical, awaitAnalisis,total = obj_search.data_vulns()
+    none, low, medium, high, critical, awaitAnalisis,total,vulns_per_month = obj_search.data_vulns()
+    obj_database.add_per_Month(obj=vulns_per_month)
     data_response = obj_database.concat_new_vulns(none=none,low=low,medium=medium,high=high,critical=critical,total=total,awaitAnalisis=awaitAnalisis)
     return jsonify({
         "result": {
@@ -65,7 +66,8 @@ def search_cant_vulns():
             "Critical" : critical,
             "Awaiting Analysis" : awaitAnalisis,
             "Total Vulns" :total,
-            "Response db" : data_response
+            "Response db" : data_response,
+            "VulnsPer month" : vulns_per_month
         }
     })
 
@@ -103,4 +105,4 @@ def run_update():
 #descomentar en uso local
 #comj
 if __name__ == '__main__':
-    app.run(debug=True)
+    [app.run(debug=True)]

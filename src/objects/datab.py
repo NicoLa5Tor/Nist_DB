@@ -8,8 +8,24 @@ class Database:
             data = json.load(conf)
             return data['urlDb']
         
-    def concat_new_vulns(self,none, low, medium, high, critical, awaitAnalisis,total):
+    def add_per_Month(self,obj):
+        data = {
+                "name_db" : "NicolasJuan",
+                "_id" : "Vulns_Per_Month",
+                "name_collection" : "Content",
+                "item" : obj 
+                }
+        self.add_db(dt=data)
+    def add_db(self,dt):
         uril = self.uril + "/add_item" 
+        try:
+            response = requests.post(url=uril,json=dt)
+            print(response)
+        except Exception as e:
+            print(f"Acurrio un error {str(e)}")
+
+    def concat_new_vulns(self,none, low, medium, high, critical, awaitAnalisis,total):
+        
         item_json_get = self.seach_db()
         if item_json_get is None:
             print("El dato devuelto es nulo")
@@ -36,8 +52,8 @@ class Database:
                     "Total" : newTotal
                 }
             }
-            response = requests.post(url=uril,json=data)
-            print(response)
+            self.add_db(dt=data)
+
         except Exception as e:
             print(f"Error al guardar los nuvos datos {str(e)}")
 
