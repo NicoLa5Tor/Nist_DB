@@ -11,6 +11,8 @@ class Database:
     def concat_new_vulns(self,none, low, medium, high, critical, awaitAnalisis,total):
         uril = self.uril + "/add_item" 
         item_json_get = self.seach_db()
+        if item_json_get is None:
+            print("El dato devuelto es nulo")
         newnone = none+item_json_get['None']
         newlow = low+item_json_get['Low']
         newmedium = medium+item_json_get['Medium']
@@ -35,10 +37,7 @@ class Database:
                 }
             }
             response = requests.post(url=uril,json=data)
-            if response.status_code == 200:
-                return "Datos de la base de datos, actualizados"
-            else:
-                return None
+            print(response)
         except Exception as e:
             print(f"Error al guardar los nuvos datos {str(e)}")
 
@@ -53,10 +52,13 @@ class Database:
         }
         try:
             url = self.uril + "/get_item"
+            print(f"la url es {url}")
             response = requests.get(url=url,json=data)
             if response.status_code == 200:
+                dat = response.json()
+                print(dat)
                 print("retorna el get item")
-                return response['response']['item']
+                return dat['response']['item']
             else:
                 print("algun error de acceso al consulatar")
                 return None
