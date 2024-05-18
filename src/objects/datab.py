@@ -67,7 +67,14 @@ class Database:
                     "Total" : newTotal
                 }
             }
-            self.add_db(dt=data)
+            status = self.add_db(dt=data)
+            if status == 200:
+                print("concat_vulns fue ingresado")
+            elif status == 409:
+                self.update_db(dt=data)
+                print("concat_vulns fue actualizado")
+
+
 
         except Exception as e:
             print(f"Error al guardar los nuvos datos {str(e)}")
