@@ -15,14 +15,29 @@ class Database:
                 "name_collection" : "Content",
                 "item" : obj 
                 }
-        self.add_db(dt=data)
+        status = self.add_db(dt=data)
+        if status == 201:
+            print("Datos ingresados")
+        elif status == 409:
+            self.update_db(dt=data)
+    def update_db(self,dt):
+        uril = self.uril + "/update_item"
+        try:
+            response = requests.put(url=uril,json=dt)
+            if response.status_code == 200:
+                print(response.json())
+            print(response)
+        except Exception as e:
+            print(e)
     def add_db(self,dt):
         uril = self.uril + "/add_item" 
         try:
             response = requests.post(url=uril,json=dt)
-            print(response)
+            return response.status_code
         except Exception as e:
             print(f"Acurrio un error {str(e)}")
+            return 0
+    
 
     def concat_new_vulns(self,none, low, medium, high, critical, awaitAnalisis,total):
         

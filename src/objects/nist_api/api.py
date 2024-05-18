@@ -11,6 +11,7 @@ class NistApi:
             data = json.load(conf)
             return data['urlNist']   
     async def search_vulnerabilities(self,start,_amount):
+        
         api_key = '45e9ee1d-47f7-4be9-893b-c54feb808265'  
         print(f"El start en la api es: {start}")
         start_index = start
