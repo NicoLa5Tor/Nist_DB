@@ -47,17 +47,20 @@ def update_thread():
        print("Error controlado")  
 @app.route('/update_data_response')
 def update_data_response():
-    global json_data
-          
+    global json_data        
     #print(f"Data es: {json_data}")
     return jsonify(json_data)        
 @app.route('/search_cant_vulns')
+def search():
+    dat = search_cant_vulns()
+    return jsonify(dat)
 def search_cant_vulns():
+    print("concatena los softwares")
     obj_search = Search() 
     none, low, medium, high, critical, awaitAnalisis,total,vulns_per_month = obj_search.data_vulns()
     obj_database.add_per_Month(obj=vulns_per_month)
     data_response = obj_database.concat_new_vulns(none=none,low=low,medium=medium,high=high,critical=critical,total=total,awaitAnalisis=awaitAnalisis)
-    return jsonify({
+    return {
         "result": {
             "None" : none,
             "Low" : low,
@@ -69,7 +72,7 @@ def search_cant_vulns():
             "Response db" : data_response,
             "VulnsPer month" : vulns_per_month
         }
-    })
+    }
 
 
 
@@ -96,6 +99,7 @@ def run_update():
    dat =  asyncio.run(update())
   # print(f"la respuesta es: {dat}")
    json_data = dat
+   search_cant_vulns()
   
  
    
